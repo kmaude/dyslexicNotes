@@ -1,0 +1,20 @@
+{
+  "note_id": "sample-note-id",
+  "marker_context": {
+    "pre_sec": 10,
+    "post_sec": 15
+  },
+  "markers": [
+    {
+      "id": "m1",
+      "type": "STAR",
+      "at_sec": 15.2,
+      "created_at_local": "2025-12-28T10:00:00",
+      "context": {
+        "start_sec": 5.2,
+        "end_sec": 30.2,
+        "text": "Remember: nucleus stores DNA."
+      }
+    }
+  ]
+}

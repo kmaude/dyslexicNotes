@@ -1,0 +1,31 @@
+{
+  "note_id": "sample-note-id",
+  "sentences": [
+    {
+      "start_sec": 0.0,
+      "end_sec": 1.2,
+      "text": "Hello class.",
+      "language": "en"
+    },
+    {
+      "start_sec": 1.2,
+      "end_sec": 3.4,
+      "text": "Today we review DNA.",
+      "language": "en"
+    }
+  ],
+  "muted_ranges": [
+    {
+      "start_sec": 22.0,
+      "end_sec": 28.0,
+      "label": "MUTED"
+    }
+  ],
+  "segments": [
+    {
+      "segment_index": 0,
+      "start_sec": 0.0,
+      "end_sec": 2700.0
+    }
+  ]
+}

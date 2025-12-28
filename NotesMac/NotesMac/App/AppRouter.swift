@@ -16,7 +16,6 @@ final class AppRouter: ObservableObject {
 }
 
 struct AppRouterView: View {
-    @EnvironmentObject private var env: AppEnvironment
     @StateObject private var router = AppRouter()
 
     var body: some View {
