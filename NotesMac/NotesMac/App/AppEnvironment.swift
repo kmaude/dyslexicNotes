@@ -12,6 +12,9 @@ final class AppEnvironment: ObservableObject {
     let transcription: TranscriptionService
     let models: WhisperModelManager
     let playback: PlaybackService
+    let tapToSpeak: TapToSpeakCoordinator
+    let explainSimply: ExplainSimplyEngine
+    let exportService: ExportService
 
     init() {
         self.settingsStore = SettingsStore()
@@ -23,6 +26,9 @@ final class AppEnvironment: ObservableObject {
         self.models = WhisperModelManager()
         self.transcription = TranscriptionService()
         self.playback = PlaybackService()
+        self.tapToSpeak = TapToSpeakCoordinator()
+        self.explainSimply = ExplainSimplyEngine()
+        self.exportService = ExportService()
     }
 
     func start() throws {

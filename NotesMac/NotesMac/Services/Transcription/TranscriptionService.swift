@@ -15,6 +15,7 @@ final class TranscriptionService: ObservableObject {
 
     private var sampleBuffer: [Float] = []
     private var lastChunkEndSec: Double = 0
+    private var resampler: PCMResampler?
 
     func configureEngine(_ engine: LocalTranscriptionEngine) {
         self.engine = engine
@@ -32,13 +33,14 @@ final class TranscriptionService: ObservableObject {
         lastError = nil
         sampleBuffer = []
         lastChunkEndSec = 0
+        resampler = nil
 
         // Consume buffers on a Task
         bufferTask = Task { [weak self] in
             guard let self else { return }
             for await buf in audioBuffers {
                 guard self.isRunning(noteID: noteID) else { break }
-                self.append(buffer: buf)
+                self.appendAndResample(buffer: buf)
             }
         }
 
@@ -56,6 +58,7 @@ final class TranscriptionService: ObservableObject {
         bufferTask = nil
         state = .stopped
         sampleBuffer = []
+        resampler = nil
     }
 
     func finalizeFullPass(noteID: String, audioURL: URL, db: DatabaseWriter) async {
@@ -71,22 +74,15 @@ final class TranscriptionService: ObservableObject {
         return false
     }
 
-    private func append(buffer: AVAudioPCMBuffer) {
-        guard let data = buffer.floatChannelData else { return }
-        let frames = Int(buffer.frameLength)
-        let channels = Int(buffer.format.channelCount)
-        if channels == 1 {
-            sampleBuffer.append(contentsOf: UnsafeBufferPointer(start: data[0], count: frames))
-        } else {
-            // Downmix by averaging channels.
-            for i in 0..<frames {
-                var sum: Float = 0
-                for c in 0..<channels {
-                    sum += data[c][i]
-                }
-                sampleBuffer.append(sum / Float(channels))
-            }
+    private func appendAndResample(buffer: AVAudioPCMBuffer) {
+        if resampler == nil || resampler?.inputSampleRate != buffer.format.sampleRate {
+            resampler = PCMResampler(inputFormat: buffer.format)
         }
+        guard let resampler else { return }
+        guard let mono16k = resampler.convertTo16kMono(buffer) else { return }
+        guard let data = mono16k.floatChannelData else { return }
+        let frames = Int(mono16k.frameLength)
+        sampleBuffer.append(contentsOf: UnsafeBufferPointer(start: data[0], count: frames))
     }
 
     private func flushChunkIfReady(
@@ -132,5 +128,43 @@ final class TranscriptionService: ObservableObject {
         } catch {
             lastError = "Transcription failed: \(error)"
         }
+    }
+}
+
+private final class PCMResampler {
+    private let targetFormat: AVAudioFormat
+    private var converter: AVAudioConverter?
+    let inputSampleRate: Double
+
+    init(inputFormat: AVAudioFormat) {
+        self.inputSampleRate = inputFormat.sampleRate
+        self.targetFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16_000, channels: 1, interleaved: false)!
+        self.converter = AVAudioConverter(from: inputFormat, to: targetFormat)
+    }
+
+    func convertTo16kMono(_ buffer: AVAudioPCMBuffer) -> AVAudioPCMBuffer? {
+        if converter == nil || converter?.inputFormat != buffer.format {
+            converter = AVAudioConverter(from: buffer.format, to: targetFormat)
+        }
+        guard let converter else { return nil }
+
+        let ratio = targetFormat.sampleRate / buffer.format.sampleRate
+        let capacity = AVAudioFrameCount(Double(buffer.frameLength) * ratio + 8)
+        guard let out = AVAudioPCMBuffer(pcmFormat: targetFormat, frameCapacity: capacity) else { return nil }
+
+        var didProvide = false
+        var error: NSError?
+        converter.convert(to: out, error: &error) { _, status in
+            if didProvide {
+                status.pointee = .endOfStream
+                return nil
+            } else {
+                didProvide = true
+                status.pointee = .haveData
+                return buffer
+            }
+        }
+        if error != nil { return nil }
+        return out
     }
 }

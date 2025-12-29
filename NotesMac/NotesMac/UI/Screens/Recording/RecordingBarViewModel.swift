@@ -95,6 +95,20 @@ final class RecordingBarViewModel: ObservableObject {
             try env.audioCapture.start(noteID: noteID)
             env.warnings.startMonitoring()
 
+            // Prefer Small if installed, else Medium. If none installed, use fallback engine.
+            #if canImport(WhisperSwift)
+            let installed = env.models.status.installed
+            if installed.contains(.small) {
+                if let engine = try? WhisperCPPTranscriptionEngine(modelURL: env.models.localURL(for: .small)) {
+                    env.transcription.configureEngine(engine)
+                }
+            } else if installed.contains(.medium) {
+                if let engine = try? WhisperCPPTranscriptionEngine(modelURL: env.models.localURL(for: .medium)) {
+                    env.transcription.configureEngine(engine)
+                }
+            }
+            #endif
+
             env.transcription.start(
                 noteID: noteID,
                 chunkSeconds: note.chunkSeconds,
@@ -223,6 +237,30 @@ final class RecordingBarViewModel: ObservableObject {
                     )
                 )
                 try JSONWriters.writeMeta(meta, to: bundle.metaJSON)
+
+                // M5: run organizer Option A right away (offline, deterministic)
+                let mutedModels: [MutedRangeModel] = (try? await db.read { db in
+                    try MutedRangeModel.filter(Column("note_id") == noteID).fetchAll(db)
+                }) ?? []
+                let mutedRanges = mutedModels.map { TranscriptJSON.MutedRange(startSec: $0.startSec, endSec: $0.endSec, label: "MUTED") }
+
+                let sentenceRows = (try? await TranscriptDAO(db: db).fetchSentences(noteID: noteID)) ?? []
+                let markerRows = (try? await MarkersDAO(db: db).fetchMarkers(noteID: noteID)) ?? []
+                let md = OptionAOrganizer().generate(
+                    className: klass.name,
+                    dateYYYYMMDD: String(note.createdAtLocal.prefix(10)),
+                    sentences: sentenceRows,
+                    mutedRanges: mutedRanges,
+                    markers: markerRows
+                )
+                try? MarkdownWriter.write(md, to: bundle.notesMD)
+
+                if let data = try? Data(contentsOf: bundle.metaJSON),
+                   var updated = try? JSONDecoder().decode(MetaJSON.self, from: data) {
+                    updated.organizer.status = "OK"
+                    updated.organizer.lastRunAtLocal = DateFormatters.isoLocalDateTime.string(from: Date())
+                    try? JSONWriters.writeMeta(updated, to: bundle.metaJSON)
+                }
             }
 
             // Full-file refine pass (M3) then rewrite transcript + FTS

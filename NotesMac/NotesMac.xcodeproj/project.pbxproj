@@ -94,6 +94,25 @@
 		A10000000000000000001027 /* MetaJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001027 /* MetaJSON.swift */; };
 		A10000000000000000001028 /* TranscriptJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001028 /* TranscriptJSON.swift */; };
 		A10000000000000000001029 /* MarkersJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001029 /* MarkersJSON.swift */; };
+		A10000000000000000001030 /* MarkdownWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001030 /* MarkdownWriter.swift */; };
+		A10000000000000000001031 /* OptionAOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001031 /* OptionAOrganizer.swift */; };
+		A10000000000000000001032 /* SentenceScorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001032 /* SentenceScorer.swift */; };
+		A10000000000000000001033 /* Deduper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001033 /* Deduper.swift */; };
+		A10000000000000000001034 /* VocabularyExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001034 /* VocabularyExtractor.swift */; };
+		A10000000000000000001035 /* QuestionAnswerLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001035 /* QuestionAnswerLinker.swift */; };
+		A10000000000000000001036 /* OrganizerOutputRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001036 /* OrganizerOutputRenderer.swift */; };
+		A10000000000000000001037 /* String+Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001037 /* String+Tokens.swift */; };
+		A10000000000000000001038 /* ReadingRulerOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001038 /* ReadingRulerOverlay.swift */; };
+		A10000000000000000001039 /* WordChunkRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001039 /* WordChunkRenderer.swift */; };
+		A10000000000000000001040 /* TapToSpeakCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001040 /* TapToSpeakCoordinator.swift */; };
+		A10000000000000000001041 /* ExplainSimplyEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001041 /* ExplainSimplyEngine.swift */; };
+		A10000000000000000001042 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001042 /* ExportService.swift */; };
+		A10000000000000000001043 /* RTFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001043 /* RTFExporter.swift */; };
+		A10000000000000000001044 /* DOCXExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001044 /* DOCXExporter.swift */; };
+		A10000000000000000001045 /* RenameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001045 /* RenameManager.swift */; };
+		A10000000000000000001046 /* VersionsDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001046 /* VersionsDAO.swift */; };
+		A10000000000000000001047 /* RenameNoteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001047 /* RenameNoteSheet.swift */; };
+		A10000000000000000001048 /* CreateCleanCopySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000001048 /* CreateCleanCopySheet.swift */; };
 
 		A10000000000000000000100 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000100 /* Info.plist */; };
 /* End PBXBuildFile section */
@@ -186,6 +205,25 @@
 		A20000000000000000001027 /* MetaJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Metadata/MetaJSON.swift; sourceTree = "<group>"; };
 		A20000000000000000001028 /* TranscriptJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Metadata/TranscriptJSON.swift; sourceTree = "<group>"; };
 		A20000000000000000001029 /* MarkersJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Metadata/MarkersJSON.swift; sourceTree = "<group>"; };
+		A20000000000000000001030 /* MarkdownWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/Storage/MarkdownWriter.swift; sourceTree = "<group>"; };
+		A20000000000000000001031 /* OptionAOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Organizer/OptionAOrganizer.swift; sourceTree = "<group>"; };
+		A20000000000000000001032 /* SentenceScorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Organizer/SentenceScorer.swift; sourceTree = "<group>"; };
+		A20000000000000000001033 /* Deduper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Organizer/Deduper.swift; sourceTree = "<group>"; };
+		A20000000000000000001034 /* VocabularyExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Organizer/VocabularyExtractor.swift; sourceTree = "<group>"; };
+		A20000000000000000001035 /* QuestionAnswerLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Organizer/QuestionAnswerLinker.swift; sourceTree = "<group>"; };
+		A20000000000000000001036 /* OrganizerOutputRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Organizer/OrganizerOutputRenderer.swift; sourceTree = "<group>"; };
+		A20000000000000000001037 /* String+Tokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities/Extensions/String+Tokens.swift; sourceTree = "<group>"; };
+		A20000000000000000001038 /* ReadingRulerOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/Accessibility/ReadingRulerOverlay.swift; sourceTree = "<group>"; };
+		A20000000000000000001039 /* WordChunkRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/Accessibility/WordChunkRenderer.swift; sourceTree = "<group>"; };
+		A20000000000000000001040 /* TapToSpeakCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/Accessibility/TapToSpeakCoordinator.swift; sourceTree = "<group>"; };
+		A20000000000000000001041 /* ExplainSimplyEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/Accessibility/ExplainSimplyEngine.swift; sourceTree = "<group>"; };
+		A20000000000000000001042 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/Storage/Export/ExportService.swift; sourceTree = "<group>"; };
+		A20000000000000000001043 /* RTFExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/Storage/Export/RTFExporter.swift; sourceTree = "<group>"; };
+		A20000000000000000001044 /* DOCXExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/Storage/Export/DOCXExporter.swift; sourceTree = "<group>"; };
+		A20000000000000000001045 /* RenameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/Storage/RenameManager.swift; sourceTree = "<group>"; };
+		A20000000000000000001046 /* VersionsDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence/Database/DAOs/VersionsDAO.swift; sourceTree = "<group>"; };
+		A20000000000000000001047 /* RenameNoteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/Screens/NoteDetail/Editing/RenameNoteSheet.swift; sourceTree = "<group>"; };
+		A20000000000000000001048 /* CreateCleanCopySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/Screens/NoteDetail/Editing/CreateCleanCopySheet.swift; sourceTree = "<group>"; };
 
 		A20000000000000000000100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Resources/Info.plist; sourceTree = "<group>"; };
 
@@ -281,6 +319,25 @@
 				A10000000000000000001027,
 				A10000000000000000001028,
 				A10000000000000000001029,
+				A10000000000000000001030,
+				A10000000000000000001031,
+				A10000000000000000001032,
+				A10000000000000000001033,
+				A10000000000000000001034,
+				A10000000000000000001035,
+				A10000000000000000001036,
+				A10000000000000000001037,
+				A10000000000000000001038,
+				A10000000000000000001039,
+				A10000000000000000001040,
+				A10000000000000000001041,
+				A10000000000000000001042,
+				A10000000000000000001043,
+				A10000000000000000001044,
+				A10000000000000000001045,
+				A10000000000000000001046,
+				A10000000000000000001047,
+				A10000000000000000001048,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +355,11 @@
 			buildConfigurationList = A90000000000000000000001;
 			buildPhases = (A30000000000000000000003, A30000000000000000000001, A30000000000000000000002);
 			name = NotesMac;
-			packageProductDependencies = (AA0000000000000000000001 /* GRDB */);
+			packageProductDependencies = (
+				AA0000000000000000000001 /* GRDB */,
+				AD0000000000000000000001 /* WhisperSwift */,
+				AF0000000000000000000001 /* ZIPFoundation */,
+			);
 			productName = NotesMac;
 			productReference = A20000000000000000000200;
 			productType = "com.apple.product-type.application";
@@ -314,7 +375,11 @@
 			developmentRegion = en;
 			knownRegions = (en);
 			mainGroup = A40000000000000000000001;
-			packageReferences = (AB0000000000000000000001 /* GRDB.swift */);
+			packageReferences = (
+				AB0000000000000000000001 /* GRDB.swift */,
+				AC0000000000000000000001 /* WhisperSwift */,
+				AE0000000000000000000001 /* ZIPFoundation */,
+			);
 			productRefGroup = A40000000000000000000003;
 			targets = (A50000000000000000000001);
 		};
@@ -348,10 +413,17 @@
 
 /* Begin XCRemoteSwiftPackageReference section */
 		AB0000000000000000000001 /* GRDB.swift */ = {isa = XCRemoteSwiftPackageReference; repositoryURL = "https://github.com/groue/GRDB.swift"; requirement = { kind = upToNextMajorVersion; minimumVersion = 7.0.0; }; };
+		AE0000000000000000000001 /* ZIPFoundation */ = {isa = XCRemoteSwiftPackageReference; repositoryURL = "https://github.com/weichsel/ZIPFoundation"; requirement = { kind = upToNextMajorVersion; minimumVersion = 0.9.0; }; };
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		AC0000000000000000000001 /* WhisperSwift */ = {isa = XCLocalSwiftPackageReference; relativePath = Vendor/WhisperSwift; };
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		AA0000000000000000000001 /* GRDB */ = {isa = XCSwiftPackageProductDependency; package = AB0000000000000000000001; productName = GRDB; };
+		AD0000000000000000000001 /* WhisperSwift */ = {isa = XCSwiftPackageProductDependency; package = AC0000000000000000000001 /* WhisperSwift */; productName = WhisperSwift; };
+		AF0000000000000000000001 /* ZIPFoundation */ = {isa = XCSwiftPackageProductDependency; package = AE0000000000000000000001 /* ZIPFoundation */; productName = ZIPFoundation; };
 /* End XCSwiftPackageProductDependency section */
 
 	};

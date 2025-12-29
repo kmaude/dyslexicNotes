@@ -24,6 +24,9 @@ struct SettingsModel: Codable, Equatable {
     // Capture
     var chunkSeconds: Int
 
+    // Playback
+    var playbackClarityMode: PlaybackClarityMode
+
     static func `default`() -> SettingsModel {
         SettingsModel(
             schoolModeEnabled: false,
@@ -39,7 +42,8 @@ struct SettingsModel: Codable, Equatable {
             readingRulerLines: 2,
             readingRulerOpacity: 0.25,
             wordChunkMode: .off,
-            chunkSeconds: Constants.defaultChunkSeconds
+            chunkSeconds: Constants.defaultChunkSeconds,
+            playbackClarityMode: .normal
         )
     }
 }

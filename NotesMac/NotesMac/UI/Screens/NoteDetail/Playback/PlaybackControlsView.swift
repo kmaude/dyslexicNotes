@@ -3,6 +3,7 @@ import SwiftUI
 struct PlaybackControlsView: View {
     let isPlaying: Bool
     @Binding var rate: Double
+    @Binding var clarityMode: PlaybackClarityMode
     let onPlayPause: () -> Void
     let onReplaySentence: () -> Void
     @Binding var autoLoopEnabled: Bool
@@ -17,6 +18,14 @@ struct PlaybackControlsView: View {
 
             SpeedSliderView(rate: $rate)
                 .frame(width: 200)
+
+            Picker("", selection: $clarityMode) {
+                Text("Normal").tag(PlaybackClarityMode.normal)
+                Text("Classroom").tag(PlaybackClarityMode.classroom)
+                Text("Slow+Clear").tag(PlaybackClarityMode.slowClear)
+            }
+            .pickerStyle(.menu)
+            .frame(width: 120)
 
             Button("Replay sentence", action: onReplaySentence)
                 .buttonStyle(.bordered)

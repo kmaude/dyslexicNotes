@@ -5,8 +5,11 @@ import AVFoundation
 final class PlaybackService: ObservableObject {
     @Published private(set) var isPlaying: Bool = false
     @Published private(set) var currentTimeSec: Double = 0
-    @Published var rate: Float = 1.0 {
+    @Published var baseRate: Float = 1.0 {
         didSet { applyRateIfNeeded() }
+    }
+    @Published var clarityMode: PlaybackClarityMode = .normal {
+        didSet { applyClarityMode() }
     }
 
     private var player: AVPlayer?
@@ -15,6 +18,7 @@ final class PlaybackService: ObservableObject {
     func load(url: URL) {
         stop()
         let item = AVPlayerItem(url: url)
+        item.audioTimePitchAlgorithm = .spectral
         let p = AVPlayer(playerItem: item)
         player = p
         observeTime(player: p)
@@ -22,7 +26,7 @@ final class PlaybackService: ObservableObject {
 
     func play() {
         guard let player else { return }
-        player.playImmediately(atRate: rate)
+        player.playImmediately(atRate: effectiveRate())
         isPlaying = true
     }
 
@@ -57,6 +61,28 @@ final class PlaybackService: ObservableObject {
 
     private func applyRateIfNeeded() {
         guard isPlaying else { return }
-        player?.rate = rate
+        player?.rate = effectiveRate()
+    }
+
+    private func applyClarityMode() {
+        guard let item = player?.currentItem else { return }
+        switch clarityMode {
+        case .normal:
+            item.audioTimePitchAlgorithm = .spectral
+        case .classroom:
+            item.audioTimePitchAlgorithm = .timeDomain
+        case .slowClear:
+            item.audioTimePitchAlgorithm = .timeDomain
+        }
+        applyRateIfNeeded()
+    }
+
+    private func effectiveRate() -> Float {
+        switch clarityMode {
+        case .normal, .classroom:
+            return baseRate
+        case .slowClear:
+            return min(baseRate, 0.85)
+        }
     }
 }

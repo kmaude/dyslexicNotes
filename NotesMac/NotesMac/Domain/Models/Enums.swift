@@ -27,3 +27,9 @@ enum WordChunkMode: String, Codable, CaseIterable {
     case softChunking
     case syllableHinting
 }
+
+enum PlaybackClarityMode: String, Codable, CaseIterable {
+    case normal
+    case classroom
+    case slowClear
+}
