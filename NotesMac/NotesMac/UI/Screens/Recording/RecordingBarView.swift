@@ -8,6 +8,18 @@ struct RecordingBarView: View {
         VStack(spacing: 8) {
             DragHandleView()
 
+            if !env.warnings.activeWarnings.isEmpty {
+                VStack(alignment: .leading, spacing: 4) {
+                    ForEach(env.warnings.activeWarnings, id: \.self) { w in
+                        Text(w.message)
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.orange)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+            }
+
             HStack(spacing: 10) {
                 Picker("Class", selection: Binding(
                     get: { vm.selectedClassID ?? "" },
@@ -23,19 +35,19 @@ struct RecordingBarView: View {
                     .font(.system(.body, design: .monospaced).weight(.semibold))
                     .frame(width: 70, alignment: .leading)
 
-                Button(vm.isMuted ? "Muted" : "Mute") { vm.toggleMute() }
+                Button(vm.isMuted ? "Muted" : "Mute") { vm.toggleMute(env: env) }
                     .buttonStyle(.bordered)
 
-                Button(vm.state == .paused ? "Resume" : "Pause") { vm.togglePause() }
+                Button(vm.state == .paused ? "Resume" : "Pause") { vm.togglePause(env: env) }
                     .buttonStyle(.bordered)
 
-                Button("Stop") { vm.stop() }
+                Button("Stop") { vm.stop(env: env) }
                     .buttonStyle(.borderedProminent)
 
                 Divider().frame(height: 18)
 
-                Button("⭐ \(vm.starCount)") { vm.addStar() }.buttonStyle(.bordered)
-                Button("❓ \(vm.questionCount)") { vm.addQuestion() }.buttonStyle(.bordered)
+                Button("⭐ \(vm.starCount)") { vm.addStar(env: env) }.buttonStyle(.bordered)
+                Button("❓ \(vm.questionCount)") { vm.addQuestion(env: env) }.buttonStyle(.bordered)
 
                 Spacer()
 

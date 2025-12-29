@@ -56,4 +56,60 @@ struct NotesDAO {
             return try NoteCardRow.fetchAll(db, sql: sql, arguments: StatementArguments(args))
         }
     }
+
+    func fetchNote(noteID: String) async throws -> NoteModel? {
+        try await db.read { db in
+            try NoteModel.fetchOne(db, key: noteID)
+        }
+    }
+
+    func fetchClass(classID: String) async throws -> ClassModel? {
+        try await db.read { db in
+            try ClassModel.fetchOne(db, key: classID)
+        }
+    }
+
+    func createNote(note: NoteModel) async throws {
+        try await db.write { db in
+            try note.insert(db)
+            // initial segment placeholder (filled properly on stop)
+            try SegmentModel(noteID: note.noteID, segmentIndex: 0, startSec: 0, endSec: 0).insert(db)
+        }
+    }
+
+    func updateDuration(noteID: String, durationSeconds: Int) async throws {
+        try await db.write { db in
+            try db.execute(
+                sql: "UPDATE notes SET duration_seconds = ? WHERE note_id = ?",
+                arguments: [durationSeconds, noteID]
+            )
+        }
+    }
+
+    func updateTitle(noteID: String, title: String) async throws {
+        try await db.write { db in
+            try db.execute(
+                sql: "UPDATE notes SET title = ? WHERE note_id = ?",
+                arguments: [title, noteID]
+            )
+        }
+    }
+
+    func replaceSegments(noteID: String, segments: [TranscriptJSON.Segment]) async throws {
+        try await db.write { db in
+            try db.execute(sql: "DELETE FROM note_segments WHERE note_id = ?", arguments: [noteID])
+            for s in segments {
+                try SegmentModel(noteID: noteID, segmentIndex: s.segmentIndex, startSec: s.startSec, endSec: s.endSec).insert(db)
+            }
+        }
+    }
+
+    func replaceMutedRanges(noteID: String, ranges: [TranscriptJSON.MutedRange]) async throws {
+        try await db.write { db in
+            try db.execute(sql: "DELETE FROM muted_ranges WHERE note_id = ?", arguments: [noteID])
+            for r in ranges {
+                try MutedRangeModel(noteID: noteID, startSec: r.startSec, endSec: r.endSec).insert(db)
+            }
+        }
+    }
 }

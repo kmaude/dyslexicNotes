@@ -8,6 +8,10 @@ struct SettingsModel: Codable, Equatable {
     var recordingBarWindowOriginX: Double?
     var recordingBarWindowOriginY: Double?
 
+    // Audio
+    var preferredInputDeviceID: String?
+    var preferredInputDeviceName: String?
+
     // Reading
     var fontName: String?
     var spacingPreset: DyslexiaSpacingPreset
@@ -26,6 +30,8 @@ struct SettingsModel: Codable, Equatable {
             lastClassID: nil,
             recordingBarWindowOriginX: nil,
             recordingBarWindowOriginY: nil,
+            preferredInputDeviceID: nil,
+            preferredInputDeviceName: nil,
             fontName: nil,
             spacingPreset: .relaxed,
             highlightHex: Constants.defaultHighlightHex,
