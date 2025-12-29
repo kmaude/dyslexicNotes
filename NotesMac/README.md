@@ -57,3 +57,13 @@ Planned mapping (implemented in later milestones):
 - **M5**: Organizer Option A generates `notes.md`.
 - **M6**: Dyslexia supports 1–7 wired into Note Detail.
 - **M7**: Clean copies + RTF/DOCX export + rename flow (keep `note_id` stable).
+
+### Create a self-install DMG (macOS)
+Run these from the repo root on a Mac with Xcode installed:
+
+```bash
+./scripts/build_release_app.sh
+./scripts/make_dmg.sh
+```
+
+Output: `./dist/Notes.dmg` (drag `NotesMac.app` into `/Applications`).
