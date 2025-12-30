@@ -1,0 +1,25 @@
+{
+  "classes": [
+    {
+      "name": "Misc Notes",
+      "color_hex": "#9B9B9B",
+      "is_system": 1,
+      "language_mode": "EN_ONLY",
+      "special_language": null
+    },
+    {
+      "name": "Biology",
+      "color_hex": "#4A90E2",
+      "is_system": 0,
+      "language_mode": "EN_ONLY",
+      "special_language": null
+    },
+    {
+      "name": "History",
+      "color_hex": "#F5A623",
+      "is_system": 0,
+      "language_mode": "EN_ONLY",
+      "special_language": null
+    }
+  ]
+}
